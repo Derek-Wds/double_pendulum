@@ -21,6 +21,7 @@ function setup() {
   createCanvas(1200, 1200);
   canvas = createGraphics(100, 100);
   canvas.background(255);
+  frameRate(22);
 }
 
 function draw() {
@@ -49,23 +50,24 @@ function draw() {
   ellipse(x2, y2, m2, m2);
 
   // update the angle a1 and a2
-  a1 += 0.1;
-  a2 -= 0.2;
-  // a1 += a1_v;
-  // a2 += a2_v
-  // update_a1();
-  // update_a2();
-  // a1_v += a1_acc;
-  // a2_v += a2_acc;
+  a1 += a1_v;
+  a2 += a2_v
+  update_a1();
+  update_a2();
+  a1_v += a1_acc;
+  a2_v += a2_acc;
   points.push([x2, y2]);
 
   // draw
   canvas.translate(600, 200);
   canvas.strokeWeight(4);
   canvas.stroke(0);
-  for (i = 1; i < points.length; i++){
-    canvas.line(points[i][0], points[i][1], points[i-1][0], points[i-1][1]);
+  noFill();
+  beginShape();
+  for (i = 0; i < points.length; i++){
+    vertex(points[i][0], points[i][1]);
   }
+  endShape();
   
   px2 = x2;
   py2 = y2;
