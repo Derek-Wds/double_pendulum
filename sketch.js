@@ -3,10 +3,10 @@
 // initialize all the parameters
 let r1 = 200;
 let r2 = 200;
-let m1 = 10;
+let m1 = 15;
 let m2 = 10;
 let a1 = Math.PI/3;
-let a2 = Math.PI/4;
+let a2 = Math.PI/2;
 let g = 9.8;     // constant g in physics
 let a1_v = 0;    // velocity of angle 1
 let a2_v = 0;    // velocity of angle 2
@@ -65,7 +65,7 @@ function draw() {
   noFill();
   beginShape();
   for (i = 0; i < points.length; i++){
-    vertex(points[i][0], points[i][1]);
+    curveVertex(points[i][0], points[i][1]);
   }
   endShape();
   
@@ -77,18 +77,18 @@ function draw() {
 function update_a1() {
   let term1 = -g * (2 * m1 + m2) * sin(a1);
   let term2 = -m2 * g * sin(a1 - 2 * a2);
-  let term3 = Math.pow(a2_v, 2) * r2 + Math.pow(a1_v, 2) * r1 * cos(a1-a2);
+  let term3 = Math.pow(a2_v, 2) * r2 + Math.pow(a1_v, 2) * r1 * cos(a1 - a2);
   let term4 = -2 * sin(a1 - a2) * m2 * (term3);
-  let term5 = r1 * (2 * m1 + m2 - m2 * cos(2 * a1 - 2 * a1));
+  let term5 = r1 * (2 * m1 + m2 - m2 * cos(2 * a1 - 2 * a2));
   a1_acc = (term1 + term2 + term4) / term5;
 }
 
 // function to update angle a2
 function update_a2() {
   let term1 = 2 * sin(a1 - a2);
-  let term2 = (Math.pow(a1_v, 2) * r1 * (m1 + m2));
+  let term2 = Math.pow(a1_v, 2) * r1 * (m1 + m2);
   let term3 = g * (m1 + m2) * cos(a1);
   let term4 = Math.pow(a2_v, 2) * r2 * m2 * cos(a1 - a2);
-  let term5 = r2 * (2*m1 + m2 - m2 * cos(2 * a1 - 2 * a2));
+  let term5 = r2 * (2 * m1 + m2 - m2 * cos(2 * a1 - 2 * a2));
   a2_acc = (term1 * (term2 + term3 + term4)) / term5;
 }
